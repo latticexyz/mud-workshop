@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@ark/util": "^0.18.0",
-    "@ezkljs/engine": "^16.2.2",
+    "@ezkljs/engine": "^16.2.3",
     "@latticexyz/common": "2.2.15-entrykit-d928bffbd5581fdc643915df1e5faad2eaafa210",
     "@latticexyz/config": "2.2.15-entrykit-d928bffbd5581fdc643915df1e5faad2eaafa210",
     "@latticexyz/entrykit": "2.2.15-entrykit-d928bffbd5581fdc643915df1e5faad2eaafa210",

@@ -71,8 +71,8 @@ type MoveResult = {
 }
 
 // TODO: ezkl prover should compute the next move with a proof.
-async function computeMove (npcState: NPCState, ezState: EZKLState): Promise<MoveResult> {
-    // 
+async function computeMove(npcState: NPCState, ezState: EZKLState): Promise<MoveResult> {
+  // 
   // Fetch the files from public folder
   // Names of the sample files in the public directory
   const sampleFileNames: { [key: string]: string } = {
@@ -86,6 +86,7 @@ async function computeMove (npcState: NPCState, ezState: EZKLState): Promise<Mov
     path: string,
     filename: string,
   ): Promise<File> => {
+    // no cors mode is required to fetch files from public folder
     const response = await fetch(path)
     const blob = await response.blob()
     return new File([blob], filename, { type: blob.type })
@@ -93,7 +94,7 @@ async function computeMove (npcState: NPCState, ezState: EZKLState): Promise<Mov
 
   // Fetch each sample file and create a File object
   const filePromises = Object.entries(sampleFileNames).map(([key, filename]) =>
-    fetchAndCreateFile(`https://mud-downloads.ezkl.xyz/${filename}`, filename),
+    fetchAndCreateFile(`https://raw.githubusercontent.com/zkonduit/hunter-npc/main/samples/${filename}`, filename),
   )
 
   // Wait for all files to be fetched and created
@@ -111,12 +112,16 @@ async function computeMove (npcState: NPCState, ezState: EZKLState): Promise<Mov
 
   let result = await convertFilesToFilesSer(genWitnessFileObject)
 
+  console.log(result);
+
   let output
   if (result['compiled_onnx'] && result['input']) {
     output = genWitness(result['compiled_onnx'], result['input']);
   } else {
     throw new Error('Required files are missing');
   }
+
+  console.log(output);
 
   let witness = deserialize(output)
 
@@ -165,15 +170,15 @@ export function useNPC() {
     async function initializeResources() {
       // Initialize the WASM module
       try {
-      const engine = await import('@ezkljs/engine/web/ezkl.js')
-      setEzkl(engine)
-      await (engine as any).default(ezklURL, new WebAssembly.Memory({ initial: 20, maximum: 65536, shared: true }))
-      // For human readable wasm debug errors call this function
-      engine.init_panic_hook()
+        const engine = await import('@ezkljs/engine/web/ezkl.js')
+        setEzkl(engine)
+        await (engine as any).default(ezklURL, new WebAssembly.Memory({ initial: 20, maximum: 65536, shared: true }))
+        // For human readable wasm debug errors call this function
+        engine.init_panic_hook()
 
-      console.log('ezkl engine loaded');
+        console.log('ezkl engine loaded');
       } catch (e) {
-	console.log(e);
+        console.log(e);
       }
     }
     initializeResources()
@@ -186,8 +191,8 @@ export function useNPC() {
       address: addr,
       abi: npcAbi,
       client: {
-	public: client,
-	wallet: sessionClient,
+        public: client,
+        wallet: sessionClient,
       },
     });
   }
@@ -195,21 +200,21 @@ export function useNPC() {
   return {
     move: (state: NPCState, npcAddr: Address) => {
       if (ezkl) {
-	console.log("computing move", state);
-	computeMove(state, ezkl)
-	  .then(result => {
-	    console.log(result)
+        console.log("computing move", state);
+        computeMove(state, ezkl)
+          .then(result => {
+            console.log(result)
 
-	    const npcContract = getNpcContract(npcAddr);
+            const npcContract = getNpcContract(npcAddr);
 
-	    return npcContract.write.move([result.proof, result.direction]);
-	  })
-	  .then(result => {
-	    console.log("sent move tx", result);
-	  })
-	  .catch(console.error);
+            return npcContract.write.move([result.proof, result.direction]);
+          })
+          .then(result => {
+            console.log("sent move tx", result);
+          })
+          .catch(console.error);
       } else {
-	console.error("EZKL was not initialized");
+        console.error("EZKL was not initialized");
       }
     }
   }

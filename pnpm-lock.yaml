@@ -12,8 +12,8 @@ importers:
         specifier: ^0.18.0
         version: 0.18.0
       '@ezkljs/engine':
-        specifier: ^16.2.2
-        version: 16.2.2
+        specifier: ^16.2.3
+        version: 16.2.3
       '@latticexyz/common':
         specifier: 2.2.15-entrykit-d928bffbd5581fdc643915df1e5faad2eaafa210
         version: 2.2.15-entrykit-d928bffbd5581fdc643915df1e5faad2eaafa210(@aws-sdk/client-kms@3.682.0)(asn1.js@5.4.1)(typescript@5.4.2)(viem@2.21.19(bufferutil@4.0.8)(typescript@5.4.2)(utf-8-validate@5.0.10)(zod@3.23.8))(zod@3.23.8)
@@ -1277,8 +1277,8 @@ packages:
     resolution: {integrity: sha512-zQ0IqbdX8FZ9aw11vP+dZkKDkS+kgIvQPHnSAXzP9pLu+Rfu3D3XEeLbicvoXJTYnhZiPmsZUxgdzXwNKxRPbA==}
     engines: {node: '>=14'}
 
-  '@ezkljs/engine@16.2.2':
-    resolution: {integrity: sha512-j+xV8GSGb65M+mI4aqCK0e5tE4duEZUrWMfzFXUDt36cmexm12wqYGIown28OokSwt/uykT1S7DWGKrfs6B+Ag==}
+  '@ezkljs/engine@16.2.3':
+    resolution: {integrity: sha512-O9BpMxVQtb2hr073UoU6a/LEH8l4uQKnxIdB7/Lotqn1W1u35peWIMrHGXllZq1R/clzopoEg/IAbjJYcY5Lbg==}
 
   '@floating-ui/core@1.6.8':
     resolution: {integrity: sha512-7XJ9cPU+yI2QeLS+FCSlqNFZJq8arvswefkZrYI1yQBbftw6FyrZOxYSh+9S7z7TpeWlRt9zJ5IhM1WIL334jA==}
@@ -8339,7 +8339,7 @@ snapshots:
       ethereum-cryptography: 2.2.1
       micro-ftch: 0.3.1
 
-  '@ezkljs/engine@16.2.2':
+  '@ezkljs/engine@16.2.3':
     dependencies:
       '@types/json-bigint': 1.0.4
       json-bigint: 1.0.0

@@ -93,9 +93,9 @@ export function useWorldContract() {
 
   return worldContract && waitForTransaction
     ? {
-        worldContract,
-        waitForTransaction,
-        deployNPC,
-      }
+      worldContract,
+      waitForTransaction,
+      deployNPC,
+    }
     : {};
 }

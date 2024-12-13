@@ -17,7 +17,8 @@
     "deploy:testnet": "env $(grep -v '#' .env.rhodolite | xargs) mprocs --config mprocs.testnet.deploy.yaml",
     "lint": "eslint .",
     "test": "tsc",
-    "mud:up": "mud set-version --tag entrykit && pnpm install"
+    "mud:up": "mud set-version --tag entrykit && pnpm install",
+    "deploy:verifier": "forge script DeployVerifier --broadcast --rpc-url https://rpc.rhodolitechain.com -vvv"
   },
   "dependencies": {
     "@ark/util": "^0.18.0",
